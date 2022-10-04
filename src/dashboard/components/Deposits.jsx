@@ -1,7 +1,6 @@
-import * as React from 'react';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import Title from './Title';
+import { Title } from './';
 
 function preventDefault(event) {
   event.preventDefault();
@@ -9,7 +8,7 @@ function preventDefault(event) {
 
 export const Deposits = () =>{
   return (
-    <React.Fragment>
+    <>
       <Title>Recent Deposits</Title>
       <Typography component="p" variant="h4">
         $3,024.00
@@ -22,6 +21,6 @@ export const Deposits = () =>{
           View balance
         </Link>
       </div>
-    </React.Fragment>
+    </>
   );
 }
