@@ -16,7 +16,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
 import { Copyright } from '../../ui/components';
-import { mainListItems , Chart, Deposits, Orders } from '../components';
+import { MainListItems , Chart, Deposits, Orders } from '../components';
 import { AppBar, Drawer } from '../components/styled';
 
 const mdTheme = createTheme();
@@ -90,7 +90,7 @@ export const DashboardPage = () => {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            <MainListItems open={open}/>
             <Divider sx={{ my: 1 }} />
           </List>
         </Drawer>

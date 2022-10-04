@@ -7,7 +7,7 @@ import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import { Avatar, Divider, Grid, Typography } from '@mui/material';
 
-export const mainListItems = (
+export const MainListItems = ({ open }) => (
   <>
     <Grid container
       justifyContent='center'
@@ -16,33 +16,34 @@ export const mainListItems = (
       sx={{py: 2}}
     >
       <Avatar sx={{ width: 60, height: 60 }}>AÑ</Avatar>
-      <Typography variant='subtitle1' pt={2}>Andy Ñaca</Typography>
-      <Typography variant='subtitle2'>Admin</Typography>
+      <Typography variant='subtitle1' pt={2} display={ open?'':'none' }>Andy Ñaca</Typography>
+      <Typography variant='subtitle2' display={ open?'':'none' }>Admin</Typography>
+
     </Grid>
     <Divider />
     <ListItemButton>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="Home" />
+      <ListItemText display={ open?'':'none' } primary="Home" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Usuarios" />
+      <ListItemText display={ open?'':'none' } primary="Usuarios" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <ViewInArIcon />
       </ListItemIcon>
-      <ListItemText primary="Objetos" />
+      <ListItemText display={ open?'':'none' } primary="Objetos" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <MapsHomeWorkIcon />
       </ListItemIcon>
-      <ListItemText primary="Aulas" />
+      <ListItemText display={ open?'':'none' } primary="Aulas" />
     </ListItemButton>
   </>
 );
