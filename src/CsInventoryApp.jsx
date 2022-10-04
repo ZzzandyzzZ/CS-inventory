@@ -1,5 +1,7 @@
+import { AppRouter } from './router/AppRouter'
+
 export const CsInventoryApp = () => {
   return (
-    <h1>Hello CS!!!</h1>
+    <AppRouter />
   )
 }
