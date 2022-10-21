@@ -1,12 +1,12 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { LoginRoutes } from '../auth/routes/LoginRoutes'
-import { DashboardRoutes } from '../dashboard/routes/DashboardRoutes'
+import { DashboardRoutes } from '../models/dashboard/routes'
+import { LoginRoutes } from '../models/auth/routes'
 
 export const AppRouter = () => {
   return (
     <Routes>
       <Route path='/auth/*' element={<LoginRoutes />}/>
-      <Route path='/dashboard' element={<DashboardRoutes />}/>
+      <Route path='/dashboard/*' element={<DashboardRoutes />}/>
       <Route path='/*' element={<Navigate to='/auth' />}/>
     </Routes>
   )

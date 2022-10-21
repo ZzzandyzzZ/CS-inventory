@@ -1,6 +1,6 @@
 import { useTheme } from '@mui/material/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
-import { Title } from './';
+import { Title } from '.';
 
 function createData(time, amount) {
   return { time, amount };

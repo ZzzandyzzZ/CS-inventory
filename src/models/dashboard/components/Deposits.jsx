@@ -1,6 +1,6 @@
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import { Title } from './';
+import { Title } from '.';
 
 function preventDefault(event) {
   event.preventDefault();
