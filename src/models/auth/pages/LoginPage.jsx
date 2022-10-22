@@ -1,12 +1,25 @@
 import { Avatar, Button, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
-
+import GoogleLogin from 'react-google-login';
 import { Copyright } from '@ui';
+import { gapi } from 'gapi-script';
+import { useEffect } from 'react';
+import { color, width } from '@mui/system';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
+  const clientId= "832440690389-q53p3c1ojvfh8tep6i20ko6476tgpslk.apps.googleusercontent.com"
+  useEffect( () =>{
+    gapi.load("client:auth2", () =>{
+      gapi.auth2.init({clientId:clientId})
+    })
+  }, [])
 
+  const responseGoogle = (response) => {
+    console.log(response);
+    navigate('/dashboard',{replace: true})
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -31,7 +44,7 @@ export const LoginPage = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Inicia sesión
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -54,6 +67,15 @@ export const LoginPage = () => {
             id="password"
             autoComplete="current-password"
           />
+          <GoogleLogin
+            clientId={clientId}
+            buttonText="Iniciar sesión con Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
+            className='google_login'
+          />
+          <br />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
