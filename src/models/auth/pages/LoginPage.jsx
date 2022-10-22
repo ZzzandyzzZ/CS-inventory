@@ -73,7 +73,7 @@ export const LoginPage = () => {
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
-            style={{width:'100%'}}
+            className='google_login'
           />
           <br />
           <FormControlLabel
