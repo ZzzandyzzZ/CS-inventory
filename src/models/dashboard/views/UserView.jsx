@@ -1,13 +1,14 @@
-import { ViewLayout } from '../layouts/ViewLayout'
 import PeopleIcon from '@mui/icons-material/People';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Button, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, TextField } from '@mui/material';
+import {
+  Button, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, TextField,
+} from '@mui/material';
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import { ViewLayout } from '../layouts/ViewLayout';
 
-const AddUserForm = () => {
-
+function AddUserForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -109,17 +110,17 @@ const AddUserForm = () => {
   );
 }
 
-const ListUsers = () => {
+function ListUsers() {
   return (
-    <List >
-      {[0, 1, 2, 3].map((val) =>
+    <List>
+      {[0, 1, 2, 3].map((val) => (
         <ListItem
           key={val}
-          secondaryAction={
+          secondaryAction={(
             <IconButton edge="end" aria-label="delete">
               <DeleteIcon />
             </IconButton>
-          }
+          )}
         >
           <ListItemAvatar>
             <Avatar>
@@ -127,21 +128,22 @@ const ListUsers = () => {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={"Usuario numero " + val}
-            secondary={'DNI ' + val}
+            primary={`Usuario numero ${val}`}
+            secondary={`DNI ${val}`}
           />
-        </ListItem>,
-      )}
+        </ListItem>
+      ))}
     </List>
-  )
+  );
 }
 
-export const UserView = () => {
+export function UserView() {
   return (
     <ViewLayout
       AddComponent={AddUserForm}
       ListComponent={ListUsers}
-      title='Usuarios' Icon={PeopleIcon}
+      title="Usuarios"
+      Icon={PeopleIcon}
     />
-  )
+  );
 }

@@ -1,10 +1,15 @@
-import { DashboardLayout } from '../layouts/DashboardLayout';
-import { HomeView } from '../views/HomeView';
+import PropTypes from 'prop-types';
 
-export const DashboardPage = ({ View }) => {
+import { DashboardLayout } from '../layouts/DashboardLayout';
+
+export function DashboardPage({ View }) {
   return (
     <DashboardLayout>
       <View />
     </DashboardLayout>
   );
 }
+
+DashboardPage.propTypes = {
+  View: PropTypes.element.isRequired,
+};

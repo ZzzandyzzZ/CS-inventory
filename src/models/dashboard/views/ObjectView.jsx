@@ -1,13 +1,14 @@
-import { ViewLayout } from '../layouts/ViewLayout'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Button, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, TextField } from '@mui/material';
+import {
+  Button, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, TextField,
+} from '@mui/material';
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
+import { ViewLayout } from '../layouts/ViewLayout';
 
-const AddObjectForm = () => {
-
+function AddObjectForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -68,17 +69,17 @@ const AddObjectForm = () => {
   );
 }
 
-const ListObjects = () => {
+function ListObjects() {
   return (
-    <List >
-      {[0, 1, 2, 3, 4].map((val) =>
+    <List>
+      {[0, 1, 2, 3, 4].map((val) => (
         <ListItem
           key={val}
-          secondaryAction={
+          secondaryAction={(
             <IconButton edge="end" aria-label="delete">
               <DeleteIcon />
             </IconButton>
-          }
+          )}
         >
           <ListItemAvatar>
             <Avatar>
@@ -86,23 +87,22 @@ const ListObjects = () => {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={"Objeto numero " + val}
-            secondary={'Código ' + val}
+            primary={`Objeto numero ${val}`}
+            secondary={`Código ${val}`}
           />
-        </ListItem>,
-      )}
+        </ListItem>
+      ))}
     </List>
-  )
+  );
 }
 
-
-
-export const ObjectView = () => {
+export function ObjectView() {
   return (
     <ViewLayout
       AddComponent={AddObjectForm}
       ListComponent={ListObjects}
-      title='Usuarios' Icon={ViewInArIcon}
+      title="Usuarios"
+      Icon={ViewInArIcon}
     />
-  )
+  );
 }

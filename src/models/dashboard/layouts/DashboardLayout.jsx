@@ -1,13 +1,19 @@
 import { useState } from 'react';
 
-import { Badge, Box, Container, Divider, Grid, IconButton, List, Paper,Toolbar, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+
+import {
+  Badge, Box, Container, Divider, IconButton, List, Toolbar, Typography,
+} from '@mui/material';
 import { Menu as MenuIcon, Notifications as NotificationsIcon, ChevronLeft as ChevronLeftIcon } from '@mui/icons-material';
 
-import { Copyright } from '@ui';
-import { MainListItems , Chart, Deposits, Orders } from '../components';
+import { Copyright } from '../../ui/Copyright';
+import {
+  MainListItems,
+} from '../components';
 import { AppBar, Drawer } from '../components/styled';
 
-export const DashboardLayout = ({children}) => {
+export function DashboardLayout({ children }) {
   const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -39,7 +45,7 @@ export const DashboardLayout = ({children}) => {
             color="inherit"
             noWrap
             sx={{ flexGrow: 1 }}
-            display={ open?'none':'' }
+            display={open ? 'none' : ''}
           >
             CS Inventory
           </Typography>
@@ -65,7 +71,7 @@ export const DashboardLayout = ({children}) => {
             color="inherit"
             noWrap
             sx={{ flexGrow: 1 }}
-            display={ !open?'none':'' }
+            display={!open ? 'none' : ''}
           >
             CS Inventory
           </Typography>
@@ -75,17 +81,16 @@ export const DashboardLayout = ({children}) => {
         </Toolbar>
         <Divider />
         <List component="nav">
-          <MainListItems open={open}/>
+          <MainListItems open={open} />
           <Divider sx={{ my: 1 }} />
         </List>
       </Drawer>
       <Box
         component="main"
         sx={{
-          backgroundColor: (theme) =>
-            theme.palette.mode === 'light'
-              ? theme.palette.grey[100]
-              : theme.palette.grey[900],
+          backgroundColor: (theme) => (theme.palette.mode === 'light'
+            ? theme.palette.grey[100]
+            : theme.palette.grey[900]),
           flexGrow: 1,
           height: '100vh',
           overflow: 'auto',
@@ -100,3 +105,7 @@ export const DashboardLayout = ({children}) => {
     </Box>
   );
 }
+
+DashboardLayout.propTypes = {
+  children: PropTypes.node.isRequired,
+};

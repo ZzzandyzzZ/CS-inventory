@@ -1,33 +1,29 @@
-import { Avatar, Button, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container } from '@mui/material'
+import {
+  Avatar, Button, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container,
+} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
-import { Copyright } from '@ui';
 import { gapi } from 'gapi-script';
 import { useEffect } from 'react';
-import { color, width } from '@mui/system';
+import { Copyright } from '../../ui/Copyright';
 
-export const LoginPage = () => {
+export function LoginPage() {
   const navigate = useNavigate();
-  const clientId= "832440690389-q53p3c1ojvfh8tep6i20ko6476tgpslk.apps.googleusercontent.com"
-  useEffect( () =>{
-    gapi.load("client:auth2", () =>{
-      gapi.auth2.init({clientId:clientId})
-    })
-  }, [])
+  const clientId = '832440690389-q53p3c1ojvfh8tep6i20ko6476tgpslk.apps.googleusercontent.com';
+  useEffect(() => {
+    gapi.load('client:auth2', () => {
+      gapi.auth2.init({ clientId });
+    });
+  }, []);
 
   const responseGoogle = (response) => {
     console.log(response);
-    navigate('/dashboard',{replace: true})
-  }
+    navigate('/dashboard', { replace: true });
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    navigate('/dashboard',{replace: true})
+    navigate('/dashboard', { replace: true });
   };
 
   return (
@@ -72,8 +68,8 @@ export const LoginPage = () => {
             buttonText="Iniciar sesión con Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
-            className='google_login'
+            cookiePolicy="single_host_origin"
+            className="google_login"
           />
           <br />
           <FormControlLabel
@@ -90,13 +86,13 @@ export const LoginPage = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="/" variant="body2">
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link href="/" variant="body2">
+                Don&apos;t have an account? Sign Up
               </Link>
             </Grid>
           </Grid>

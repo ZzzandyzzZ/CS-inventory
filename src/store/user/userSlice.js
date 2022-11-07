@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
-    status: 'not-logged',  // not-logged, logged, checking
+    status: 'not-logged', // not-logged, logged, checking
     showName: null,
     email: null,
     password: null,
@@ -13,6 +13,6 @@ export const userSlice = createSlice({
       state.status = 'logged';
     },
   },
-})
+});
 
-export const { login } = userSlice.actions
+export const { login } = userSlice.actions;

@@ -1,7 +1,7 @@
-import { AppRouter } from './router/AppRouter'
+import { AppRouter } from './router/AppRouter';
 
-export const CsInventoryApp = () => {
+export function CsInventoryApp() {
   return (
     <AppRouter />
-  )
+  );
 }

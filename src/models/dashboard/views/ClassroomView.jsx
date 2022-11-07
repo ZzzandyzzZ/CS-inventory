@@ -1,14 +1,14 @@
-import { ViewLayout } from '../layouts/ViewLayout'
-import PeopleIcon from '@mui/icons-material/People';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Button, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, TextField } from '@mui/material';
+import {
+  Button, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, TextField,
+} from '@mui/material';
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
+import { ViewLayout } from '../layouts/ViewLayout';
 
-const AddClassroomForm = () => {
-
+function AddClassroomForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -69,17 +69,17 @@ const AddClassroomForm = () => {
   );
 }
 
-const ListClassrooms = () => {
+function ListClassrooms() {
   return (
-    <List >
-      {[0, 1, 2, 3, 4, 5].map((val) =>
+    <List>
+      {[0, 1, 2, 3, 4, 5].map((val) => (
         <ListItem
           key={val}
-          secondaryAction={
+          secondaryAction={(
             <IconButton edge="end" aria-label="delete">
               <DeleteIcon />
             </IconButton>
-          }
+          )}
         >
           <ListItemAvatar>
             <Avatar>
@@ -87,24 +87,22 @@ const ListClassrooms = () => {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={"Aula numero " + val}
-            secondary={'Código ' + val}
+            primary={`Aula numero ${val}`}
+            secondary={`Código ${val}`}
           />
-        </ListItem>,
-      )}
+        </ListItem>
+      ))}
     </List>
-  )
+  );
 }
 
-
-
-export const ClassroomView = () => {
+export function ClassroomView() {
   return (
     <ViewLayout
       AddComponent={AddClassroomForm}
       ListComponent={ListClassrooms}
-      title='Aulas' Icon={MapsHomeWorkIcon}
+      title="Aulas"
+      Icon={MapsHomeWorkIcon}
     />
-  )
+  );
 }
-

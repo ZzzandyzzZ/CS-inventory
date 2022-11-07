@@ -1,24 +1,19 @@
-
 import { Grid } from '@mui/material';
-import { ResumeCard } from '../components/ResumeCard';
 
 import PeopleIcon from '@mui/icons-material/People';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
+import { ResumeCard } from '../components/ResumeCard';
 import { classroomPathName, objectsPathName, usersPathName } from '../../../constants/constants';
 
-const resumeCards = [
-  {}
-]
-
-export const HomeView = () => {
+export function HomeView() {
   return (
     <Grid container spacing={10}>
-      <ResumeCard Icon={PeopleIcon} title='Usuarios' totalNumber={4} pathName={usersPathName} />
-      <ResumeCard Icon={ViewInArIcon} title='Objetos' totalNumber={36} pathName={objectsPathName} />
-      <ResumeCard Icon={MapsHomeWorkIcon} title='Aulas' totalNumber={15} pathName={classroomPathName} />
+      <ResumeCard Icon={PeopleIcon} title="Usuarios" totalNumber={4} pathName={usersPathName} />
+      <ResumeCard Icon={ViewInArIcon} title="Objetos" totalNumber={36} pathName={objectsPathName} />
+      <ResumeCard Icon={MapsHomeWorkIcon} title="Aulas" totalNumber={15} pathName={classroomPathName} />
     </Grid>
-  )
+  );
 }
 
 // export const HomeView = () => {
@@ -59,4 +54,3 @@ export const HomeView = () => {
 //     </Grid>
 //   )
 // }
-
