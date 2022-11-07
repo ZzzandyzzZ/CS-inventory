@@ -11,5 +11,5 @@ export function DashboardPage({ View }) {
 }
 
 DashboardPage.propTypes = {
-  View: PropTypes.element.isRequired,
+  View: PropTypes.func.isRequired,
 };

@@ -40,7 +40,7 @@ export function ResumeCard({
 }
 
 ResumeCard.propTypes = {
-  Icon: PropTypes.element.isRequired,
+  Icon: PropTypes.shape({}).isRequired,
   title: PropTypes.string.isRequired,
   totalNumber: PropTypes.number.isRequired,
   pathName: PropTypes.string.isRequired,
