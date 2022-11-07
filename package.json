@@ -16,11 +16,13 @@
     "@mui/icons-material": "^5.10.6",
     "@mui/lab": "^5.0.0-alpha.104",
     "@mui/material": "^5.10.8",
+    "@reduxjs/toolkit": "^1.9.0",
     "gapi": "^0.0.3",
     "gapi-script": "^1.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-login": "^5.2.2",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.1",
     "recharts": "^2.1.14"
   },
