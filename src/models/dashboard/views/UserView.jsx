@@ -7,6 +7,7 @@ import {
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import { ViewLayout } from '../layouts/ViewLayout';
+import { useGetUsersQuery } from '../../../store/api/user';
 
 function AddUserForm() {
   const handleSubmit = (event) => {
@@ -111,11 +112,13 @@ function AddUserForm() {
 }
 
 function ListUsers() {
-  return (
+  const { data: users = [], isLoading } = useGetUsersQuery();
+
+  return !isLoading && (
     <List>
-      {[0, 1, 2, 3].map((val) => (
+      {users.map((user) => (
         <ListItem
-          key={val}
+          key={user.id}
           secondaryAction={(
             <IconButton edge="end" aria-label="delete">
               <DeleteIcon />
@@ -128,8 +131,8 @@ function ListUsers() {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={`Usuario numero ${val}`}
-            secondary={`DNI ${val}`}
+            primary={`Usuario numero ${user.id}`}
+            secondary={user.first_name}
           />
         </ListItem>
       ))}
