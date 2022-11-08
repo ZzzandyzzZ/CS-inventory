@@ -5,11 +5,13 @@ import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import { ResumeCard } from '../components/ResumeCard';
 import { classroomPathName, objectsPathName, usersPathName } from '../../../constants/constants';
+import { useGetUsersQuery } from '../../../store/api/user';
 
 export function HomeView() {
+  const { data: users = [] } = useGetUsersQuery();
   return (
     <Grid container spacing={10}>
-      <ResumeCard Icon={PeopleIcon} title="Usuarios" totalNumber={4} pathName={usersPathName} />
+      <ResumeCard Icon={PeopleIcon} title="Usuarios" totalNumber={users?.length} pathName={usersPathName} />
       <ResumeCard Icon={ViewInArIcon} title="Objetos" totalNumber={36} pathName={objectsPathName} />
       <ResumeCard Icon={MapsHomeWorkIcon} title="Aulas" totalNumber={15} pathName={classroomPathName} />
     </Grid>

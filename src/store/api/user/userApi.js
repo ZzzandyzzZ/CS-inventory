@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { backBaseURL } from '../../../constants';
 
 export const userApi = createApi({
-  reducerPath: 'todos',
+  reducerPath: 'users',
   baseQuery: fetchBaseQuery({
     baseUrl: backBaseURL,
   }),

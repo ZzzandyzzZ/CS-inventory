@@ -47,8 +47,8 @@ export function ViewLayout({
 }
 
 ViewLayout.propTypes = {
-  AddComponent: PropTypes.element.isRequired,
-  ListComponent: PropTypes.element.isRequired,
+  AddComponent: PropTypes.func.isRequired,
+  ListComponent: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  Icon: PropTypes.element.isRequired,
+  Icon: PropTypes.shape({}).isRequired,
 };

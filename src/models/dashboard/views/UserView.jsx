@@ -113,7 +113,6 @@ function AddUserForm() {
 
 function ListUsers() {
   const { data: users = [], isLoading } = useGetUsersQuery();
-
   return !isLoading && (
     <List>
       {users.map((user) => (
@@ -131,8 +130,8 @@ function ListUsers() {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={`Usuario numero ${user.id}`}
-            secondary={user.first_name}
+            primary={user.first_name}
+            secondary={`DNI: ${user.dni}`}
           />
         </ListItem>
       ))}
