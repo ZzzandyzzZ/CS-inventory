@@ -23,8 +23,9 @@ export function LoginPage() {
 
   const responseGoogle = (response) => {
     console.log(response);
-    const { name, imageUrl } = response.profileObj;
-    disptach(login({ showName: name, photoUrl: imageUrl }));
+    const { givenName, imageUrl } = response.profileObj;
+    console.log(response.profileObj);
+    disptach(login({ showName: givenName, photoUrl: imageUrl }));
     navigate('/dashboard', { replace: true });
   };
   const handleSubmit = (event) => {
