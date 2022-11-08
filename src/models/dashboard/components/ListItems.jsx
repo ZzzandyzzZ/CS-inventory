@@ -13,11 +13,13 @@ import {
   Avatar, Divider, Grid, Typography,
 } from '@mui/material';
 
+import { useSelector } from 'react-redux';
 import {
   classroomPathName, dashboardRootName, objectsPathName, usersPathName,
 } from '../../../constants/constants';
 
 export function MainListItems({ open }) {
+  const { showName, photoUrl } = useSelector((state) => state.user);
   const navigate = useNavigate();
   return (
     <>
@@ -28,8 +30,9 @@ export function MainListItems({ open }) {
         alignItems="center"
         sx={{ py: 2 }}
       >
-        <Avatar sx={{ width: 60, height: 60 }}>AÑ</Avatar>
-        <Typography variant="subtitle1" pt={2} display={open ? '' : 'none'}>Andy Ñaca</Typography>
+        {/* <Avatar sx={{ width: 60, height: 60 }}>AÑ</Avatar> */}
+        <Avatar sx={{ width: 60, height: 60 }} src={photoUrl} />
+        <Typography variant="subtitle1" pt={2} display={open ? '' : 'none'}>{showName}</Typography>
         <Typography variant="subtitle2" display={open ? '' : 'none'}>Admin</Typography>
 
       </Grid>
