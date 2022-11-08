@@ -6,9 +6,13 @@ import { useNavigate } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 import { gapi } from 'gapi-script';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Copyright } from '../../ui/Copyright';
+import { login } from '../../../store/user/userSlice';
 
 export function LoginPage() {
+  const disptach = useDispatch();
+  const { status } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const clientId = '832440690389-q53p3c1ojvfh8tep6i20ko6476tgpslk.apps.googleusercontent.com';
   useEffect(() => {
@@ -19,6 +23,8 @@ export function LoginPage() {
 
   const responseGoogle = (response) => {
     console.log(response);
+    const { name, imageUrl } = response.profileObj;
+    disptach(login({ showName: name, photoUrl: imageUrl }));
     navigate('/dashboard', { replace: true });
   };
   const handleSubmit = (event) => {
