@@ -7,10 +7,14 @@ export const userSlice = createSlice({
     showName: null,
     email: null,
     password: null,
+    uid: null,
+    photoUrl: null,
   },
   reducers: {
-    login: (state) => {
+    login: (state, { payload }) => {
       state.status = 'logged';
+      state.showName = payload.showName;
+      state.photoUrl = payload.photoUrl;
     },
   },
 });
