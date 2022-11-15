@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { backBaseURL } from '../../../constants';
 
 export const assetApi = createApi({
-  reducerPath: 'users',
+  reducerPath: 'assets',
   baseQuery: fetchBaseQuery({
     baseUrl: backBaseURL,
   }),
