@@ -1,18 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { backBaseURL } from '../../../constants';
 
-export const userApi = createApi({
+export const assetApi = createApi({
   reducerPath: 'users',
   baseQuery: fetchBaseQuery({
     baseUrl: backBaseURL,
   }),
   endpoints: (builder) => ({
-    getUsers: builder.query({
-      query: () => '/users',
+    getAssets: builder.query({
+      query: () => '/assets',
     }),
-    addUser: builder.mutation({
+    addAsset: builder.mutation({
       query: (task) => ({
-        url: '/user',
+        url: '/asset',
         method: 'POST',
         body: task,
       }),
@@ -20,4 +20,4 @@ export const userApi = createApi({
   }),
 });
 
-export const { useGetUsersQuery, useAddUserMutation } = userApi;
+export const { useGetAssetsQuery, useAddAssetMutation } = assetApi;
