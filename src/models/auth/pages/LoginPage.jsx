@@ -1,111 +1,70 @@
 import {
-  Avatar, Button, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container,
+  Avatar, Button, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, Card,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import  Google  from '@mui/icons-material/Google';
 import { useNavigate } from 'react-router-dom';
-import GoogleLogin from 'react-google-login';
-import { gapi } from 'gapi-script';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Copyright } from '../../ui/Copyright';
 import { login } from '../../../store/user/userSlice';
+import { startGoogleSignIn } from '../../../store/user/thunks';
 
 export function LoginPage() {
+
+
   const disptach = useDispatch();
   const { status } = useSelector((state) => state.user);
-  const navigate = useNavigate();
-  const clientId = '832440690389-q53p3c1ojvfh8tep6i20ko6476tgpslk.apps.googleusercontent.com';
-  useEffect(() => {
-    gapi.load('client:auth2', () => {
-      gapi.auth2.init({ clientId });
-    });
-  }, []);
+  const isAuthenticating = useMemo( () => status === 'checking', [status]);
 
-  const responseGoogle = (response) => {
-    console.log(response);
-    const { givenName, imageUrl } = response.profileObj;
-    console.log(response.profileObj);
-    disptach(login({ showName: givenName, photoUrl: imageUrl }));
-    navigate('/dashboard', { replace: true });
-  };
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     navigate('/dashboard', { replace: true });
   };
 
+  const dispatch = useDispatch();
+  const onGoogleSignIn = () => {
+    dispatch( startGoogleSignIn() );
+  }
+
+
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Inicia sesión
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <GoogleLogin
-            clientId={clientId}
-            buttonText="Iniciar sesión con Google"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy="single_host_origin"
-            className="google_login"
-          />
-          <br />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="/" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="/" variant="body2">
-                Don&apos;t have an account? Sign Up
-              </Link>
-            </Grid>
-          </Grid>
+    <Container component="main" maxWidth="xs" sx={{pt:10}}>
+      <Card>
+        <Box
+          sx={{
+            marginTop: 5,
+            display: 'flex',
+            flexWrap:'wrap',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Inicia sesión
+          </Typography>
+          <Box  sx={{ mt: 1 }}>
+            <Button
+              disabled={ isAuthenticating}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={onGoogleSignIn}
+            >
+              <Google sx={{ mr: 2 }} />
+              Iniciar sesión con Google
+            </Button>
+
+            <br />
+          </Box>
         </Box>
-      </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Card>
     </Container>
   );
 }

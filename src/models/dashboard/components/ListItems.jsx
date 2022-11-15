@@ -19,7 +19,7 @@ import {
 } from '../../../constants/constants';
 
 export function MainListItems({ open }) {
-  const { showName, photoUrl } = useSelector((state) => state.user);
+  const { displayName, photoURL } = useSelector((state) => state.user);
   const navigate = useNavigate();
   return (
     <>
@@ -31,8 +31,8 @@ export function MainListItems({ open }) {
         sx={{ py: 2 }}
       >
         {/* <Avatar sx={{ width: 60, height: 60 }}>AÑ</Avatar> */}
-        <Avatar sx={{ width: 60, height: 60 }} src={photoUrl} />
-        <Typography variant="subtitle1" pt={2} display={open ? '' : 'none'}>{showName}</Typography>
+        <Avatar sx={{ width: 60, height: 60 }} src={photoURL} />
+        <Typography variant="subtitle1" pt={2} display={open ? '' : 'none'}>{displayName}</Typography>
         <Typography variant="subtitle2" display={open ? '' : 'none'}>Admin</Typography>
 
       </Grid>
