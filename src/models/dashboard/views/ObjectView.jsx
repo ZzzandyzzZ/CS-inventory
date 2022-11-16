@@ -7,10 +7,21 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import { ViewLayout } from '../layouts/ViewLayout';
+import { useAddAssetMutation, useGetAssetsQuery } from '../../../store/api/asset/assetApi';
 
 function AddObjectForm() {
+  const [addAsset, result] = useAddAssetMutation();
   const handleSubmit = (event) => {
     event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    addAsset({
+      id: '1',
+      code: '1111',
+      denomination: data.get('objectName'),
+      color: 'red',
+      detail: '',
+      brand: data.get('category'),
+    });
   };
 
   return (
@@ -70,11 +81,12 @@ function AddObjectForm() {
 }
 
 function ListObjects() {
+  const { data: assets = [], isLoading } = useGetAssetsQuery();
   return (
     <List>
-      {[0, 1, 2, 3, 4].map((val) => (
+      {assets.map((asset) => (
         <ListItem
-          key={val}
+          key={asset.id}
           secondaryAction={(
             <IconButton edge="end" aria-label="delete">
               <DeleteIcon />
@@ -87,8 +99,8 @@ function ListObjects() {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={`Objeto numero ${val}`}
-            secondary={`Código ${val}`}
+            primary={`Objeto numero ${asset.code}`}
+            secondary={asset.denomination}
           />
         </ListItem>
       ))}

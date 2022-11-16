@@ -6,13 +6,15 @@ import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import { ResumeCard } from '../components/ResumeCard';
 import { classroomPathName, objectsPathName, usersPathName } from '../../../constants/constants';
 import { useGetUsersQuery } from '../../../store/api/user';
+import { useGetAssetsQuery } from '../../../store/api/asset/assetApi';
 
 export function HomeView() {
   const { data: users = [] } = useGetUsersQuery();
+  const { data: assets = [] } = useGetAssetsQuery();
   return (
     <Grid container spacing={10}>
       <ResumeCard Icon={PeopleIcon} title="Usuarios" totalNumber={users?.length} pathName={usersPathName} />
-      <ResumeCard Icon={ViewInArIcon} title="Objetos" totalNumber={36} pathName={objectsPathName} />
+      <ResumeCard Icon={ViewInArIcon} title="Objetos" totalNumber={assets?.length} pathName={objectsPathName} />
       <ResumeCard Icon={MapsHomeWorkIcon} title="Aulas" totalNumber={15} pathName={classroomPathName} />
     </Grid>
   );

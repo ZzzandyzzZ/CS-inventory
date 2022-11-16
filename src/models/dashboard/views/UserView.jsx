@@ -7,11 +7,20 @@ import {
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import { ViewLayout } from '../layouts/ViewLayout';
-import { useGetUsersQuery } from '../../../store/api/user';
+import { useAddUserMutation, useGetUsersQuery } from '../../../store/api/user';
 
 function AddUserForm() {
+  const [addUser, result] = useAddUserMutation();
   const handleSubmit = (event) => {
     event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    addUser({
+      id: '1',
+      rol: 'admin',
+      first_name: data.get('firstName'),
+      last_name: data.get('lastName'),
+      dni: data.get('dni'),
+    });
   };
 
   return (
