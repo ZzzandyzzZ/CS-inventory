@@ -17,12 +17,12 @@ export const userSlice = createSlice({
       state.email = payload.email;
       state.photoURL = payload.photoURL;
     },
-    logout: (state, { payload }) => {
+    logout: (state) => {
       state.status = 'not-logged'; // not-logged, logged, checking
       state.displayName = null;
       state.email = null;
       state.photoURL = null;
-      state.errorMessage = payload.errorMessage;
+      state.errorMessage = null;
     },
     checkingCredentials: (state) => {
       state.status = 'checking';

@@ -1,5 +1,6 @@
-import {signInWithGoogle } from '../../firebase/providers'
+import {signInWithGoogle, logoutFirebase } from '../../firebase/providers'
 import { checkingCredentials, logout, login } from "./"
+
 
 export const startGoogleSignIn = () =>{
     return async(dispatch) => {
@@ -9,3 +10,10 @@ export const startGoogleSignIn = () =>{
         dispatch( login(result) )
     }
 }
+
+export const startLogout = () => {
+    return async (dispatch) => {
+      await logoutFirebase();
+      dispatch(logout());
+    }
+  }

@@ -19,9 +19,9 @@ export const AppRouter = () => {
     })
   },[] )
 
-  // if (status === 'checking'){
-  //   return <CheckingAuth />
-  // }
+  if (status === 'checking'){
+    return <CheckingAuth />
+  }
 
   return (
     <Routes>
@@ -30,7 +30,11 @@ export const AppRouter = () => {
         ? <Route path="/dashboard/*" element={<DashboardRoutes />} />
         : <Route path="/auth/*" element={<LoginRoutes />} />
       }
-      <Route path="/auth" element={<Navigate to="/auth" />} />
+      <Route path="/*" element={<Navigate to={
+        (status=='logged')
+        ? "/dashboard"
+        : "/auth"
+      } />} />
     </Routes>
   );
 }
