@@ -20,6 +20,7 @@ import {
 
 export function MainListItems({ open }) {
   const { displayName, photoURL } = useSelector((state) => state.user);
+  const shortName = displayName.split(' ').slice(0, 2).join(' ');
   const navigate = useNavigate();
   return (
     <>
@@ -32,7 +33,7 @@ export function MainListItems({ open }) {
       >
         {/* <Avatar sx={{ width: 60, height: 60 }}>AÑ</Avatar> */}
         <Avatar sx={{ width: 60, height: 60 }} src={photoURL} />
-        <Typography variant="subtitle1" pt={2} display={open ? '' : 'none'}>{displayName}</Typography>
+        <Typography variant="subtitle1" pt={2} display={open ? '' : 'none'}>{shortName}</Typography>
         <Typography variant="subtitle2" display={open ? '' : 'none'}>Admin</Typography>
 
       </Grid>

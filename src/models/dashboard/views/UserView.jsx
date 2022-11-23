@@ -6,11 +6,20 @@ import {
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import { useEffect } from 'react';
 import { ViewLayout } from '../layouts/ViewLayout';
-import { useAddUserMutation, useGetUsersQuery } from '../../../store/api/user';
+import { useAddUserMutation, useDeleteUserMutation, useGetUsersQuery } from '../../../store/api/user';
 
 function AddUserForm() {
-  const [addUser, result] = useAddUserMutation();
+  const [addUser, addRsp] = useAddUserMutation();
+
+  useEffect(() => {
+    if (addRsp.isSuccess) {
+      alert('Registro correcto');
+      window.location.reload();
+    }
+  }, [addRsp]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -121,6 +130,15 @@ function AddUserForm() {
 }
 
 function ListUsers() {
+  const [deleteUser, deleteRsp] = useDeleteUserMutation();
+
+  useEffect(() => {
+    if (deleteRsp.isSuccess) {
+      alert('Registro eliminado');
+      window.location.reload();
+    }
+  }, [deleteRsp]);
+
   const { data: users = [], isLoading } = useGetUsersQuery();
   return !isLoading && (
     <List>
@@ -128,7 +146,7 @@ function ListUsers() {
         <ListItem
           key={user.id}
           secondaryAction={(
-            <IconButton edge="end" aria-label="delete">
+            <IconButton edge="end" aria-label="delete" onClick={() => deleteUser(user.id)}>
               <DeleteIcon />
             </IconButton>
           )}

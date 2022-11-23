@@ -11,6 +11,7 @@ export function DashboardRoutes() {
   return (
     <Routes>
       <Route path={usersPathName} element={<DashboardPage View={UserView} />} />
+      <Route path={`${usersPathName}/list`} element={<DashboardPage View={UserView} />} />
       <Route path={objectsPathName} element={<DashboardPage View={ObjectView} />} />
       <Route path={classroomPathName} element={<DashboardPage View={ClassroomView} />} />
       <Route path="/" element={<DashboardPage View={HomeView} />} />

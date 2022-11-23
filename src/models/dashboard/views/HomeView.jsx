@@ -7,15 +7,18 @@ import { ResumeCard } from '../components/ResumeCard';
 import { classroomPathName, objectsPathName, usersPathName } from '../../../constants/constants';
 import { useGetUsersQuery } from '../../../store/api/user';
 import { useGetAssetsQuery } from '../../../store/api/asset/assetApi';
+import { useGetlocationsQuery } from '../../../store/api/location/locationApi';
 
 export function HomeView() {
   const { data: users = [] } = useGetUsersQuery();
   const { data: assets = [] } = useGetAssetsQuery();
+  const { data: locations = [] } = useGetlocationsQuery();
+
   return (
     <Grid container spacing={10}>
       <ResumeCard Icon={PeopleIcon} title="Usuarios" totalNumber={users?.length} pathName={usersPathName} />
       <ResumeCard Icon={ViewInArIcon} title="Objetos" totalNumber={assets?.length} pathName={objectsPathName} />
-      <ResumeCard Icon={MapsHomeWorkIcon} title="Aulas" totalNumber={15} pathName={classroomPathName} />
+      <ResumeCard Icon={MapsHomeWorkIcon} title="Aulas" totalNumber={locations?.length} pathName={classroomPathName} />
     </Grid>
   );
 }

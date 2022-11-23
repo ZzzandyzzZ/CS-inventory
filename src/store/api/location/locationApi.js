@@ -1,29 +1,33 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { backBaseURL } from '../../../constants';
 
-export const userApi = createApi({
-  reducerPath: 'users',
+export const locationApi = createApi({
+  reducerPath: 'locations',
   baseQuery: fetchBaseQuery({
     baseUrl: backBaseURL,
   }),
   endpoints: (builder) => ({
-    getUsers: builder.query({
-      query: () => '/users',
+    getlocations: builder.query({
+      query: () => '/locations',
     }),
-    addUser: builder.mutation({
+    addLocation: builder.mutation({
       query: (data) => ({
-        url: '/user',
+        url: '/location',
         method: 'POST',
         body: data,
       }),
     }),
-    deleteUser: builder.mutation({
+    deleteLocation: builder.mutation({
       query: (id) => ({
-        url: `/user/${id}`,
+        url: `/location/${id}`,
         method: 'DELETE',
       }),
     }),
   }),
 });
 
-export const { useGetUsersQuery, useAddUserMutation, useDeleteUserMutation } = userApi;
+export const {
+  useGetlocationsQuery,
+  useAddLocationMutation,
+  useDeleteLocationMutation,
+} = locationApi;

@@ -1,16 +1,29 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
-  Button, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, TextField,
+  Button, Grid, IconButton, InputLabel, List, ListItem, ListItemAvatar, ListItemText, MenuItem, Select, TextField,
 } from '@mui/material';
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
+import { useEffect, useState } from 'react';
 import { ViewLayout } from '../layouts/ViewLayout';
-import { useAddAssetMutation, useGetAssetsQuery } from '../../../store/api/asset/assetApi';
+import { useAddAssetMutation, useDeleteAssetMutation, useGetAssetsQuery } from '../../../store/api/asset/assetApi';
 
 function AddObjectForm() {
-  const [addAsset, result] = useAddAssetMutation();
+  const [category, setCategory] = useState('Categoria');
+
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+  };
+
+  const [addAsset, addRsp] = useAddAssetMutation();
+  useEffect(() => {
+    if (addRsp.isSuccess) {
+      alert('Registro correcto');
+      window.location.reload();
+    }
+  }, [addRsp]);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -20,7 +33,7 @@ function AddObjectForm() {
       denomination: data.get('objectName'),
       color: 'red',
       detail: '',
-      brand: data.get('category'),
+      brand: category,
     });
   };
 
@@ -47,14 +60,19 @@ function AddObjectForm() {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              fullWidth
-              id="category"
+            <Select
+              labelId="asset-form"
+              value={category}
               label="Categoria"
-              name="category"
-              autoComplete="category"
-            />
+              onChange={handleChange}
+            >
+              <MenuItem value="Categoria">Categoria</MenuItem>
+              <MenuItem value="Monitor">Monitor</MenuItem>
+              <MenuItem value="Mesa">Mesa</MenuItem>
+              <MenuItem value="Silla">Silla</MenuItem>
+              <MenuItem value="Teclado">Teclado</MenuItem>
+              <MenuItem value="Silla">Silla</MenuItem>
+            </Select>
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -81,14 +99,22 @@ function AddObjectForm() {
 }
 
 function ListObjects() {
+  const [deleteAsset, deleteRsp] = useDeleteAssetMutation();
+
+  useEffect(() => {
+    if (deleteRsp.isSuccess) {
+      alert('Registro eliminado');
+      window.location.reload();
+    }
+  }, [deleteRsp]);
   const { data: assets = [], isLoading } = useGetAssetsQuery();
-  return (
+  return !isLoading && (
     <List>
       {assets.map((asset) => (
         <ListItem
           key={asset.id}
           secondaryAction={(
-            <IconButton edge="end" aria-label="delete">
+            <IconButton edge="end" aria-label="delete" onClick={() => deleteAsset(asset.id)}>
               <DeleteIcon />
             </IconButton>
           )}
@@ -113,7 +139,7 @@ export function ObjectView() {
     <ViewLayout
       AddComponent={AddObjectForm}
       ListComponent={ListObjects}
-      title="Usuarios"
+      title="Objetos"
       Icon={ViewInArIcon}
     />
   );

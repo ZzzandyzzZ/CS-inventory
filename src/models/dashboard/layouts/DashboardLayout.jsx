@@ -5,14 +5,16 @@ import PropTypes from 'prop-types';
 import {
   Badge, Box, Container, Divider, IconButton, List, Toolbar, Typography,
 } from '@mui/material';
-import { Menu as MenuIcon, Notifications as NotificationsIcon, ChevronLeft as ChevronLeftIcon, Logout } from '@mui/icons-material';
+import {
+  Menu as MenuIcon, Notifications as NotificationsIcon, ChevronLeft as ChevronLeftIcon, Logout,
+} from '@mui/icons-material';
 
+import { useDispatch } from 'react-redux';
 import { Copyright } from '../../ui/Copyright';
 import {
   MainListItems,
 } from '../components';
 import { AppBar, Drawer } from '../components/styled';
-import { useDispatch } from 'react-redux';
 import { startLogout } from '../../../store/user/thunks';
 
 export function DashboardLayout({ children }) {
@@ -57,8 +59,8 @@ export function DashboardLayout({ children }) {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton color="inherit" onClick={()=> dispatch(startLogout())}>
-              <Logout />
+          <IconButton color="inherit" onClick={() => dispatch(startLogout())}>
+            <Logout />
           </IconButton>
         </Toolbar>
       </AppBar>

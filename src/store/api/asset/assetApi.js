@@ -17,7 +17,13 @@ export const assetApi = createApi({
         body: task,
       }),
     }),
+    deleteAsset: builder.mutation({
+      query: (id) => ({
+        url: `/asset/${id}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
-export const { useGetAssetsQuery, useAddAssetMutation } = assetApi;
+export const { useGetAssetsQuery, useAddAssetMutation, useDeleteAssetMutation } = assetApi;

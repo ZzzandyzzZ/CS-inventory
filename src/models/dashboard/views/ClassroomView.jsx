@@ -1,18 +1,38 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
-  Button, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, TextField,
+  Button, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, MenuItem, Select, TextField,
 } from '@mui/material';
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
+import { useEffect, useState } from 'react';
 import { ViewLayout } from '../layouts/ViewLayout';
+import { useAddLocationMutation, useDeleteLocationMutation, useGetlocationsQuery } from '../../../store/api/location/locationApi';
 
 function AddClassroomForm() {
+  const [locationType, setLocationType] = useState('Tipo de Ubicacion');
+
+  const [addLocation, addRsp] = useAddLocationMutation();
+
+  useEffect(() => {
+    if (addRsp.isSuccess) {
+      alert('Registro correcto');
+      window.location.reload();
+    }
+  }, [addRsp]);
+  const handleChange = (event) => {
+    setLocationType(event.target.value);
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    addLocation({
+      id: '1',
+      code: data.get('code'),
+      location_type: locationType,
+    });
   };
-
   return (
     <Box
       sx={{
@@ -25,34 +45,27 @@ function AddClassroomForm() {
       <Box component="form" noValidate onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField
-              autoComplete="classroomName"
-              name="classroomName"
-              required
-              fullWidth
-              id="classroomName"
-              label="Nombre de Aula"
-              autoFocus
-            />
+            <Select
+              labelId="asset-form"
+              value={locationType}
+              label="Tipo de Ubicación"
+              onChange={handleChange}
+            >
+              <MenuItem value="Tipo de Ubicacion">Tipo de Ubicación</MenuItem>
+              <MenuItem value="Aula">Aula</MenuItem>
+              <MenuItem value="Laboratorio">Laboratorio</MenuItem>
+              <MenuItem value="Auditorio">Auditorio</MenuItem>
+
+            </Select>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <TextField
               required
               fullWidth
-              id="category"
-              label="Categoria"
-              name="category"
-              autoComplete="category"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              fullWidth
-              id="classroomNumber"
-              label="Número de aula"
-              name="classroomNumber"
-              autoComplete="classroomNumber"
+              id="code"
+              label="Código de aula"
+              name="code"
+              autoComplete="code"
             />
           </Grid>
         </Grid>
@@ -70,13 +83,22 @@ function AddClassroomForm() {
 }
 
 function ListClassrooms() {
-  return (
+  const [deleteLocation, deleteRsp] = useDeleteLocationMutation();
+
+  useEffect(() => {
+    if (deleteRsp.isSuccess) {
+      alert('Registro eliminado');
+      window.location.reload();
+    }
+  }, [deleteRsp]);
+  const { data: locations = [], isLoading } = useGetlocationsQuery();
+  return !isLoading && (
     <List>
-      {[0, 1, 2, 3, 4, 5].map((val) => (
+      {locations.map((location) => (
         <ListItem
-          key={val}
+          key={location.id}
           secondaryAction={(
-            <IconButton edge="end" aria-label="delete">
+            <IconButton edge="end" aria-label="delete" onClick={() => deleteLocation(location.id)}>
               <DeleteIcon />
             </IconButton>
           )}
@@ -87,8 +109,8 @@ function ListClassrooms() {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={`Aula numero ${val}`}
-            secondary={`Código ${val}`}
+            primary={`Aula numero ${location.code}`}
+            secondary={`Tipo ${location.location_type}`}
           />
         </ListItem>
       ))}
