@@ -9,6 +9,7 @@ export const assetApi = createApi({
   endpoints: (builder) => ({
     getAssets: builder.query({
       query: () => '/assets',
+      keepUnusedDataFor: 0,
     }),
     addAsset: builder.mutation({
       query: (task) => ({

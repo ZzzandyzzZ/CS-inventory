@@ -16,7 +16,6 @@ function AddUserForm() {
   useEffect(() => {
     if (addRsp.isSuccess) {
       alert('Registro correcto');
-      window.location.reload();
     }
   }, [addRsp]);
 
@@ -135,11 +134,10 @@ function ListUsers() {
   useEffect(() => {
     if (deleteRsp.isSuccess) {
       alert('Registro eliminado');
-      window.location.reload();
     }
   }, [deleteRsp]);
-
   const { data: users = [], isLoading } = useGetUsersQuery();
+
   return !isLoading && (
     <List>
       {users.map((user) => (

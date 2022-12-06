@@ -9,6 +9,7 @@ export const locationApi = createApi({
   endpoints: (builder) => ({
     getlocations: builder.query({
       query: () => '/locations',
+      keepUnusedDataFor: 0,
     }),
     addLocation: builder.mutation({
       query: (data) => ({

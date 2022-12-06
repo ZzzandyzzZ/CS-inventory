@@ -9,6 +9,7 @@ export const userApi = createApi({
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: () => '/users',
+      keepUnusedDataFor: 0,
     }),
     addUser: builder.mutation({
       query: (data) => ({

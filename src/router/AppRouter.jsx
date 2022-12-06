@@ -30,7 +30,7 @@ export function AppRouter() {
   return (
     <Routes>
       {
-        (status == 'logged')
+        (status === 'logged')
           ? <Route path="/dashboard/*" element={<DashboardRoutes />} />
           : <Route path="/auth/*" element={<LoginRoutes />} />
       }
@@ -38,7 +38,7 @@ export function AppRouter() {
         path="/*"
         element={(
           <Navigate to={
-        (status == 'logged')
+        (status === 'logged')
           ? '/dashboard'
           : '/auth'
       }
