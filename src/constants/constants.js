@@ -1,5 +1,6 @@
 export const drawerWidth = 240;
 export const usersPathName = 'users';
+export const inventoriesPathName = 'inventories';
 export const objectsPathName = 'objects';
 export const classroomPathName = 'classrooms';
 export const dashboardRootName = '/dashboard';

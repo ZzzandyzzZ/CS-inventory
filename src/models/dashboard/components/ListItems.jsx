@@ -8,6 +8,7 @@ import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import {
   Avatar, Divider, Grid, Typography,
@@ -15,7 +16,7 @@ import {
 
 import { useSelector } from 'react-redux';
 import {
-  classroomPathName, dashboardRootName, objectsPathName, usersPathName,
+  classroomPathName, dashboardRootName, objectsPathName, usersPathName, inventoriesPathName
 } from '../../../constants/constants';
 
 export function MainListItems({ open }) {
@@ -61,6 +62,12 @@ export function MainListItems({ open }) {
           <MapsHomeWorkIcon />
         </ListItemIcon>
         <ListItemText display={open ? '' : 'none'} primary="Aulas" />
+      </ListItemButton>
+      <ListItemButton onClick={() => navigate(`${dashboardRootName}/${inventoriesPathName}`)}>
+        <ListItemIcon>
+          <InventoryIcon />
+        </ListItemIcon>
+        <ListItemText display={open ? '' : 'none'} primary="Inventarios" />
       </ListItemButton>
     </>
   );
