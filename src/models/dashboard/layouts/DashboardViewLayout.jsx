@@ -37,7 +37,7 @@ function ListRegisters({ ListIcon, useDeleteMutation }) {
       dispatch(removeRegister(registerId));
     }
     if (delResponse.isError) {
-      enqueueSnackbar('Error al registrar usuario', { variant: 'error' });
+      enqueueSnackbar('Error al eliminar usuario', { variant: 'error' });
     }
   }, [delResponse]);
 

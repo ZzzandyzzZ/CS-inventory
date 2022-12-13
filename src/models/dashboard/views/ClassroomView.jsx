@@ -5,20 +5,29 @@ import {
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import { useDispatch } from 'react-redux';
+import { useSnackbar } from 'notistack';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import { useEffect, useState } from 'react';
 import { ViewLayout } from '../layouts/ViewLayout';
 import { useAddLocationMutation, useDeleteLocationMutation, useGetlocationsQuery } from '../../../store/api/location/locationApi';
+import { addNewRegister, setCurrentView, startSavingRegister, removeRegister} from '../../../store/currentView';
 
 function AddClassroomForm() {
   const [locationType, setLocationType] = useState('Tipo de Ubicacion');
 
   const [addLocation, addRsp] = useAddLocationMutation();
+  const [classRegister, setClassRegister] = useState({});
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (addRsp.isSuccess) {
-      alert('Registro correcto');
-      window.location.reload();
+      enqueueSnackbar('Objeto registrado correctamente', { variant: 'success' });
+      dispatch(addNewRegister({ ...classRegister, id: addRsp.data.id }));
+    }
+    if (addRsp.isError) {
+      enqueueSnackbar('Error al registrar objecto', { variant: 'error' });
     }
   }, [addRsp]);
   const handleChange = (event) => {
@@ -27,11 +36,14 @@ function AddClassroomForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    addLocation({
+    const classroom = addLocation({
       id: '1',
       code: data.get('code'),
       location_type: locationType,
     });
+    setClassRegister(classroom);
+    addLocation(classroom);
+    dispatch(startSavingRegister);
   };
   return (
     <Box
@@ -84,11 +96,21 @@ function AddClassroomForm() {
 
 function ListClassrooms() {
   const [deleteLocation, deleteRsp] = useDeleteLocationMutation();
+  const { enqueueSnackbar } = useSnackbar();
+  const [registerId, setRegisterId] = useState(null);
+  const dispatch = useDispatch();
 
+  const handleDeleteRegister = (id) => {
+    deleteLocation(id);
+    setRegisterId(id);
+  };
   useEffect(() => {
     if (deleteRsp.isSuccess) {
-      alert('Registro eliminado');
-      window.location.reload();
+      enqueueSnackbar('Eliminado correctamente', { variant: 'success' });
+      dispatch(removeRegister(registerId));
+    }
+    if (deleteRsp.isError) {
+      enqueueSnackbar('Error al eliminar aula', { variant: 'error' });
     }
   }, [deleteRsp]);
   const { data: locations = [], isLoading } = useGetlocationsQuery();
@@ -98,7 +120,7 @@ function ListClassrooms() {
         <ListItem
           key={location.id}
           secondaryAction={(
-            <IconButton edge="end" aria-label="delete" onClick={() => deleteLocation(location.id)}>
+            <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteRegister(location.id)}>
               <DeleteIcon />
             </IconButton>
           )}

@@ -6,9 +6,12 @@ import {
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
+import { useDispatch } from 'react-redux';
+import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { ViewLayout } from '../layouts/ViewLayout';
 import { useAddAssetMutation, useDeleteAssetMutation, useGetAssetsQuery } from '../../../store/api/asset/assetApi';
+import { addNewRegister, setCurrentView, startSavingRegister, removeRegister} from '../../../store/currentView';
 
 function AddObjectForm() {
   const [category, setCategory] = useState('Categoria');
@@ -17,24 +20,34 @@ function AddObjectForm() {
     setCategory(event.target.value);
   };
 
+  const [objectRegister, setObjectRegister] = useState({});
   const [addAsset, addRsp] = useAddAssetMutation();
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     if (addRsp.isSuccess) {
-      alert('Registro correcto');
-      window.location.reload();
+      enqueueSnackbar('Objeto registrado correctamente', { variant: 'success' });
+      dispatch(addNewRegister({ ...objectRegister, id: addRsp.data.id }));
+    }
+    if (addRsp.isError) {
+      enqueueSnackbar('Error al registrar objecto', { variant: 'error' });
     }
   }, [addRsp]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    addAsset({
+    const object = {
       id: '1',
       code: '1111',
       denomination: data.get('objectName'),
       color: 'red',
       detail: '',
       brand: category,
-    });
+    };
+    setObjectRegister(object);
+    addAsset(object);
+    dispatch(startSavingRegister());
   };
 
   return (
@@ -100,11 +113,22 @@ function AddObjectForm() {
 
 function ListObjects() {
   const [deleteAsset, deleteRsp] = useDeleteAssetMutation();
+  const { enqueueSnackbar } = useSnackbar();
+  const [registerId, setRegisterId] = useState(null);
+  const dispatch = useDispatch();
+
+  const handleDeleteRegister = (id) => {
+    deleteAsset(id);
+    setRegisterId(id);
+  };
 
   useEffect(() => {
     if (deleteRsp.isSuccess) {
-      alert('Registro eliminado');
-      window.location.reload();
+      enqueueSnackbar('Eliminado correctamente', { variant: 'success' });
+      dispatch(removeRegister(registerId));
+    }
+    if (deleteRsp.isError) {
+      enqueueSnackbar('Error al eliminar objeto', { variant: 'error' });
     }
   }, [deleteRsp]);
   const { data: assets = [], isLoading } = useGetAssetsQuery();
@@ -114,7 +138,7 @@ function ListObjects() {
         <ListItem
           key={asset.id}
           secondaryAction={(
-            <IconButton edge="end" aria-label="delete" onClick={() => deleteAsset(asset.id)}>
+            <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteRegister(asset.id)}>
               <DeleteIcon />
             </IconButton>
           )}
