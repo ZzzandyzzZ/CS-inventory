@@ -36,14 +36,13 @@ function AddClassroomForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const classroom = addLocation({
-      id: '1',
+    const classroom = {
       code: data.get('code'),
       location_type: locationType,
-    });
+    };
     setClassRegister(classroom);
     addLocation(classroom);
-    dispatch(startSavingRegister);
+    dispatch(startSavingRegister());
   };
   return (
     <Box
